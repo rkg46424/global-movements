@@ -1,1 +1,0 @@
-#Metoo movement became effective tool by using collaborative power of the social media. Let us continue building on the momentum and focus on violence against humanity. Encourage, share and publish factual occurences of rapes, human trafficking and justice served to raise the public awareness and power of common men and women.
