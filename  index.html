@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Movements — #StopNow #JusticeNow</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep:    #1A0A2E;
+    --purple:  #2D1254;
+    --mid:     #4A1B7A;
+    --magenta: #C1175A;
+    --rose:    #E8216B;
+    --pink:    #FF4D8D;
+    --cream:   #FFF5F8;
+    --white:   #FFFFFF;
+    --gray:    #9B8EA8;
+    --serif:   'Playfair Display', Georgia, serif;
+    --sans:    'DM Sans', sans-serif;
+    --mono:    'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--deep);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(26,10,46,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,23,90,0.25);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--pink);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: flex-end;
+    padding: 0 3rem 6rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1A0A2E 0%, #2D1254 40%, #1A0A2E 100%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 30%, rgba(193,23,90,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 15% 70%, rgba(74,27,122,0.4) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(193,23,90,0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(193,23,90,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridshift 20s linear infinite;
+  }
+  @keyframes gridshift { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+
+  .hero-accent {
+    position: absolute; top: 0; right: 0;
+    width: 8px; height: 140px;
+    background: var(--magenta);
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--pink);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeup 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeup 0.8s 0.4s forwards;
+  }
+  .hero-title span { color: var(--rose); }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeup 0.8s 0.6s forwards;
+  }
+
+  .hero-hashtags {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    opacity: 0;
+    animation: fadeup 0.8s 0.8s forwards;
+  }
+  .htag {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border: 1.5px solid var(--magenta);
+    border-radius: 2px;
+    color: var(--pink);
+    letter-spacing: 0.06em;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .htag:hover { background: var(--magenta); color: var(--white); }
+
+  .hero-author {
+    position: absolute; bottom: 2.5rem; right: 3rem;
+    font-size: 0.75rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  @keyframes fadeup {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 3rem; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--pink);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px; width: 40px;
+    background: var(--magenta);
+  }
+
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── WHY NOW ── */
+  .why-now {
+    background: linear-gradient(160deg, #2D1254 0%, #1A0A2E 100%);
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .why-now .inner { max-width: 1100px; margin: 0 auto; }
+  .why-now .lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    max-width: 700px;
+    margin-bottom: 4rem;
+    line-height: 1.8;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .issue-card {
+    padding: 2.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .issue-card:hover { background: rgba(193,23,90,0.08); }
+  .issue-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 60px;
+    background: var(--magenta);
+  }
+  .issue-card h3 {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    color: var(--rose);
+    margin-bottom: 1.5rem;
+  }
+  .issue-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  .issue-card li {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .issue-card li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--magenta);
+    font-size: 0.7rem;
+    top: 0.2rem;
+  }
+
+  /* ── MOVEMENTS ── */
+  .movements {
+    background: var(--deep);
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .movements .inner { max-width: 1100px; margin: 0 auto; }
+
+  .movement-block {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 0;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(193,23,90,0.2);
+    overflow: hidden;
+  }
+  .movement-sidebar {
+    background: linear-gradient(160deg, #2D1254, #1A0A2E);
+    padding: 3rem 2rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 1px solid rgba(193,23,90,0.2);
+  }
+  .movement-title {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .movement-tags { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .movement-tag {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--pink);
+    font-weight: 500;
+  }
+  .movement-sub {
+    font-size: 0.82rem;
+    color: var(--gray);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .movement-body {
+    padding: 3rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .movement-point {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .movement-point:last-child { border-bottom: none; padding-bottom: 0; }
+  .point-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--magenta);
+    padding-top: 0.15rem;
+    flex-shrink: 0;
+    width: 20px;
+  }
+  .movement-point p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.65;
+  }
+  .movement-point strong { color: var(--white); }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    background: #12082A;
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .how .inner { max-width: 1100px; margin: 0 auto; }
+  .how-intro {
+    max-width: 680px;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 4rem;
+    line-height: 1.8;
+  }
+  .formula-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .formula-card {
+    background: rgba(193,23,90,0.06);
+    border: 1px solid rgba(193,23,90,0.25);
+    padding: 2rem;
+    position: relative;
+  }
+  .formula-card h4 {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--pink);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .formula {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    background: rgba(0,0,0,0.3);
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--magenta);
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    line-height: 1.8;
+  }
+  .formula span { color: var(--pink); }
+  .formula-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .gap-visual {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 2.5rem;
+    text-align: center;
+  }
+  .gap-visual h4 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.8);
+  }
+  .gap-bar-wrap { display: flex; flex-direction: column; gap: 1.5rem; }
+  .gap-row { display: flex; align-items: center; gap: 1rem; }
+  .gap-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .gap-bar {
+    height: 28px;
+    border-radius: 2px;
+    display: flex; align-items: center;
+    padding: 0 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .bar-stop { background: var(--magenta); width: 85%; color: var(--white); }
+  .bar-just { background: rgba(193,23,90,0.25); width: 8%; color: var(--pink); border: 1px solid var(--magenta); }
+  .gap-note {
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-top: 1.25rem;
+    font-style: italic;
+  }
+
+  /* ── COVID SECTION ── */
+  .covid {
+    background: linear-gradient(160deg, #2D1254 0%, #1A0A2E 100%);
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .covid .inner { max-width: 1100px; margin: 0 auto; }
+  .covid-intro {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 680px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .covid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .covid-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 1.75rem;
+    transition: border-color 0.3s;
+  }
+  .covid-card:hover { border-color: rgba(193,23,90,0.4); }
+  .covid-card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .covid-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--rose);
+    margin-bottom: 0.6rem;
+  }
+  .covid-card p {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+  }
+
+  /* ── TAKE ACTION ── */
+  .action {
+    background: var(--deep);
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .action .inner { max-width: 1100px; margin: 0 auto; }
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .action-card {
+    border: 1px solid rgba(193,23,90,0.3);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .action-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--magenta), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .action-card:hover { background: rgba(193,23,90,0.06); }
+  .action-card:hover::before { transform: scaleX(1); }
+  .action-num {
+    font-family: var(--mono);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: rgba(193,23,90,0.2);
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+  .action-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--white);
+  }
+  .action-card p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+  }
+
+  /* ── ORGANIZATIONS ── */
+  .orgs {
+    background: #12082A;
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .orgs .inner { max-width: 1100px; margin: 0 auto; }
+  .org-list {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .org-pill {
+    padding: 0.6rem 1.25rem;
+    border: 1px solid rgba(193,23,90,0.35);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .org-pill:hover { background: var(--magenta); color: var(--white); border-color: var(--magenta); }
+
+  /* ── PLEA ── */
+  .plea {
+    background: linear-gradient(140deg, var(--magenta) 0%, #8B0E3F 100%);
+    border-top: none;
+    padding: 6rem 3rem;
+  }
+  .plea .inner {
+    max-width: 800px; margin: 0 auto;
+    text-align: center;
+  }
+  .plea blockquote {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 2rem;
+    color: var(--white);
+  }
+  .plea-attr {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0D051E;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(193,23,90,0.2);
+  }
+  .footer-brand {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+  .footer-brand strong { color: var(--pink); }
+  .footer-tags {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: flex-end;
+  }
+  .footer-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--magenta);
+    padding: 0.3rem 0.7rem;
+    border: 1px solid rgba(193,23,90,0.3);
+  }
+
+  /* ── SHARE STRIP ── */
+  .share-strip {
+    background: rgba(193,23,90,0.08);
+    border-top: 1px solid rgba(193,23,90,0.2);
+    padding: 1.5rem 3rem;
+    display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  }
+  .share-strip span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .share-btn {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    padding: 0.5rem 1.1rem;
+    background: transparent;
+    border: 1px solid rgba(193,23,90,0.4);
+    color: var(--pink);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .share-btn:hover { background: var(--magenta); color: var(--white); border-color: var(--magenta); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .two-col, .formula-grid, .covid-grid, .action-grid { grid-template-columns: 1fr; }
+    .movement-block { grid-template-columns: 1fr; }
+    .movement-sidebar { border-right: none; border-bottom: 1px solid rgba(193,23,90,0.2); }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-tags { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Global Movements</div>
+  <ul class="nav-links">
+    <li><a href="#why">Why Now</a></li>
+    <li><a href="#movements">The Movements</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#covid">COVID Impact</a></li>
+    <li><a href="#action">Take Action</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">A common person's pursuit to be a change that matters to our humanity</p>
+    <h1 class="hero-title">Global<br><span>Movements</span></h1>
+    <p class="hero-tagline">
+      Building on the momentum of #MeToo to fight the worst crimes against humanity —
+      rape and human trafficking. Let this decade be the change we wish to see.
+    </p>
+    <div class="hero-hashtags">
+      <div class="htag">#StopNow</div>
+      <div class="htag">#JusticeNow</div>
+      <div class="htag">#StopNowHT</div>
+      <div class="htag">#JusticeNowHT</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- WHY NOW -->
+<section class="why-now" id="why">
+  <div class="inner">
+    <div class="section-label">Why This Matters</div>
+    <h2 class="section-title">Let this decade be the change<br>you wish to see</h2>
+    <p class="lead">
+      #MeToo proved that collaborative social media power can shake the world. Now we must channel
+      that momentum to combat two of humanity's most heinous ongoing crimes — and force
+      governments, institutions, and societies to act.
+    </p>
+
+    <div class="two-col">
+      <div class="issue-card">
+        <h3>Rape</h3>
+        <ul>
+          <li>Not a single global agency tracks rape statistics and justice uniformly</li>
+          <li>Barbarism and brutality are on the rise worldwide</li>
+          <li>Laws remain weak and justice delivery is dangerously slow</li>
+          <li>Goal: enhance public awareness to force judicial systems to act fast</li>
+        </ul>
+      </div>
+      <div class="issue-card">
+        <h3>Human Trafficking</h3>
+        <ul>
+          <li>The worst form of violence — a victim undergoes multiple rapes every day with no end in sight</li>
+          <li>Treat it like terrorism — enact strong laws against buying and selling a human being</li>
+          <li>Tighten laws and justice against culprits at every level</li>
+          <li>Goal: escalate the fight by raising public awareness globally</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE MOVEMENTS -->
+<section class="movements" id="movements">
+  <div class="inner">
+    <div class="section-label">The Movements</div>
+    <h2 class="section-title">Two campaigns. One mission.<br>Zero tolerance.</h2>
+
+    <!-- RAPES -->
+    <div class="movement-block">
+      <div class="movement-sidebar">
+        <div>
+          <div class="movement-title">Rapes</div>
+          <div class="movement-tags">
+            <span class="movement-tag">#StopNow</span>
+            <span class="movement-tag">#JusticeNow</span>
+          </div>
+        </div>
+        <p class="movement-sub">Change focus from victims to criminals and government actions around the world.</p>
+      </div>
+      <div class="movement-body">
+        <div class="movement-point">
+          <span class="point-num">01</span>
+          <p>Make effective use of social media to <strong>enhance public awareness and outcry</strong> every time a case is reported.</p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">02</span>
+          <p>Post on social media as soon as a rape occurs. <strong>Validate authenticity first</strong> from news media, police, or directly from the victim.</p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">03</span>
+          <p>Use <strong>country-specific rape numbers</strong> alongside justice numbers to expose the devastating gap in getting justice. Example: <code style="background:rgba(0,0,0,0.3);padding:0.2rem 0.5rem;color:#FF4D8D;">#StopNow IND#10000 &nbsp;|&nbsp; #JusticeNow IND#50</code></p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">04</span>
+          <p>Support and join hands with organizations like <strong>UN Women, Equality Now, Human Rights Watch</strong> and similar global bodies.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUMAN TRAFFICKING -->
+    <div class="movement-block">
+      <div class="movement-sidebar">
+        <div>
+          <div class="movement-title">Human Trafficking</div>
+          <div class="movement-tags">
+            <span class="movement-tag">#StopNowHT</span>
+            <span class="movement-tag">#JusticeNowHT</span>
+          </div>
+        </div>
+        <p class="movement-sub">Force the numbers to speak the volume and gravity of the shameful situation in the modern age.</p>
+      </div>
+      <div class="movement-body">
+        <div class="movement-point">
+          <span class="point-num">01</span>
+          <p>Make effective use of social media to <strong>enhance public awareness and outcry</strong> around human trafficking cases globally.</p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">02</span>
+          <p>Post as soon as HT is reported. <strong>Validate authenticity</strong> from news media, law enforcement, or victim advocacy groups first.</p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">03</span>
+          <p>Use <strong>country-specific trafficking numbers</strong> and post justice numbers to expose the gap. Example: <code style="background:rgba(0,0,0,0.3);padding:0.2rem 0.5rem;color:#FF4D8D;">#StopNowHT CHI#20000 &nbsp;|&nbsp; #JusticeNowHT CHI#20</code></p>
+        </div>
+        <div class="movement-point">
+          <span class="point-num">04</span>
+          <p>Support campaigns like <strong>Blue Heart, UN Women</strong>, and other global anti-trafficking organizations at every level.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="inner">
+    <div class="section-label">The System</div>
+    <h2 class="section-title">How the hashtag<br>system works</h2>
+    <p class="how-intro">
+      The genius of this movement is making the justice gap visible with numbers. Every country gets a
+      code. Every case gets counted. The gap between #Stop and #Justice becomes a public indictment of
+      governments that fail their people.
+    </p>
+
+    <div class="formula-grid">
+      <div class="formula-card">
+        <h4>For Rape</h4>
+        <div class="formula">
+          <span>#StopNow</span> [COUNTRY]#[CASES]<br>
+          <span>#JusticeNow</span> [COUNTRY]#[CONVICTIONS]
+        </div>
+        <p class="formula-desc">Example: If India had 10,000 reported rape cases and justice was served in only 50 — post #StopNow IND#10000 alongside #JusticeNow IND#50 to make the gap undeniable.</p>
+      </div>
+      <div class="formula-card">
+        <h4>For Human Trafficking</h4>
+        <div class="formula">
+          <span>#StopNowHT</span> [COUNTRY]#[CASES]<br>
+          <span>#JusticeNowHT</span> [COUNTRY]#[CONVICTIONS]
+        </div>
+        <p class="formula-desc">Example: If China had 20,000 reported HT cases and only 20 convictions — post #StopNowHT CHI#20000 and #JusticeNowHT CHI#20 to force accountability.</p>
+      </div>
+    </div>
+
+    <div class="gap-visual">
+      <h4>The Justice Gap — what these numbers reveal</h4>
+      <div class="gap-bar-wrap">
+        <div class="gap-row">
+          <span class="gap-label">#StopNow</span>
+          <div class="gap-bar bar-stop">10,000 reported cases</div>
+        </div>
+        <div class="gap-row">
+          <span class="gap-label">#JusticeNow</span>
+          <div class="gap-bar bar-just">50</div>
+        </div>
+      </div>
+      <p class="gap-note">The gap between these two bars is the government's failure made visible. This is what we force them to answer for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COVID IMPACT -->
+<section class="covid" id="covid">
+  <div class="inner">
+    <div class="section-label">COVID-19 Impact</div>
+    <h2 class="section-title">The pandemic made it<br>dramatically worse</h2>
+    <p class="covid-intro">
+      COVID-19 has severely exacerbated human trafficking. Traffickers exploited economic desperation,
+      disrupted services, and enforcement gaps — making already vulnerable populations even more at risk.
+      (Source: Global Protection Cluster Anti-Trafficking Task Team, 2020)
+    </p>
+
+    <div class="covid-grid">
+      <div class="covid-card">
+        <div class="covid-card-icon">⚠</div>
+        <h4>New victims created</h4>
+        <p>Economic downturn and job losses created new targets. Traffickers offered "employment opportunities" to desperate displaced persons.</p>
+      </div>
+      <div class="covid-card">
+        <div class="covid-card-icon">🔒</div>
+        <h4>Victims trapped further</h4>
+        <p>Trafficked persons were physically confined and unable to exit. Restrictions meant they could not access help, healthcare, or support services.</p>
+      </div>
+      <div class="covid-card">
+        <div class="covid-card-icon">📉</div>
+        <h4>Services collapsed</h4>
+        <p>Clinics, shelters and support offices closed. Law enforcement resources were diverted, delaying justice for victims in the criminal system.</p>
+      </div>
+      <div class="covid-card">
+        <div class="covid-card-icon">👧</div>
+        <h4>Children at extreme risk</h4>
+        <p>School closures and caregiver illness left children unattended. Some caregivers — under false promises of education — unknowingly handed children to traffickers.</p>
+      </div>
+      <div class="covid-card">
+        <div class="covid-card-icon">💻</div>
+        <h4>Exploitation moved online</h4>
+        <p>Movement restrictions shifted exploitation to digital spaces. Women and children were commercially sexually exploited online and within private homes.</p>
+      </div>
+      <div class="covid-card">
+        <div class="covid-card-icon">♀</div>
+        <h4>Women & girls hardest hit</h4>
+        <p>Gender inequality was amplified. Domestic violence surged. Internally displaced women and girls faced disproportionate risk of falling into trafficking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAKE ACTION -->
+<section class="action" id="action">
+  <div class="inner">
+    <div class="section-label">Get Involved</div>
+    <h2 class="section-title">Seven ways you can<br>be the change today</h2>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-num">01</div>
+        <h4>Share the hashtags</h4>
+        <p>Post #StopNow, #JusticeNow, #StopNowHT and #JusticeNowHT with country numbers whenever you see a validated news report. Make the gap visible.</p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">02</div>
+        <h4>Validate before posting</h4>
+        <p>Always confirm authenticity from news media, law enforcement, or victim advocacy organizations before sharing any case. Truth is the movement's foundation.</p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">03</div>
+        <h4>Follow & amplify</h4>
+        <p>Follow this page and share every post. The more reach, the more pressure on governments to act.</p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">04</div>
+        <h4>Join partner organizations</h4>
+        <p>Support UN Women, Equality Now, Blue Heart Campaign, Human Rights Watch, and local shelters. Volunteer, donate, and advocate.</p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">05</div>
+        <h4>Contact your representatives</h4>
+        <p>Write to your elected officials demanding stronger laws, faster trials, and mandatory tracking of trafficking and rape statistics at the national level.</p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">06</div>
+        <h4>Educate your network</h4>
+        <p>Share infographics, statistics, and resources. Host awareness sessions. Talk about it — silence is complicity in a crime this severe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATIONS -->
+<section class="orgs" id="orgs">
+  <div class="inner">
+    <div class="section-label">Partner Organizations</div>
+    <h2 class="section-title">Join hands with these<br>global change agents</h2>
+    <div class="org-list">
+      <div class="org-pill">UN Women</div>
+      <div class="org-pill">Equality Now</div>
+      <div class="org-pill">Human Rights Watch</div>
+      <div class="org-pill">Blue Heart Campaign (UNODC)</div>
+      <div class="org-pill">Global Protection Cluster</div>
+      <div class="org-pill">International Justice Mission</div>
+      <div class="org-pill">Polaris Project</div>
+      <div class="org-pill">ECPAT International</div>
+      <div class="org-pill">Girls Not Brides</div>
+      <div class="org-pill">End Slavery Now</div>
+      <div class="org-pill">La Strada International</div>
+      <div class="org-pill">Shared Hope International</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLEA -->
+<section class="plea">
+  <div class="inner">
+    <blockquote>
+      "You mobilized people to come forward with #MeToo. Let this decade be the change you wish
+      to see that minimizes violence against humans — especially females. Encourage, share, and publish
+      factual occurrences of rapes and human trafficking. Let the power of common men and women
+      bring the change and justice."
+    </blockquote>
+    <p class="plea-attr">— Sent to the #MeToo Movement &amp; ABC News 20/20</p>
+  </div>
+</section>
+
+<!-- SHARE STRIP -->
+<div class="share-strip">
+  <span>Spread the movement</span>
+  <a class="share-btn" href="https://twitter.com/intent/tweet?text=%23StopNow+%23JusticeNow+%23StopNowHT+%23JusticeNowHT+%E2%80%94+Join+the+Global+Movements+to+end+rape+and+human+trafficking.+Let+this+decade+be+the+change." target="_blank">Share on X / Twitter</a>
+  <a class="share-btn" href="https://www.facebook.com/profile.php?id=100064458231301" target="_blank">Facebook Page</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <strong>Global Movements</strong><br>
+    A common person's pursuit to be a change that matters to our humanity.
+  </div>
+  <div class="footer-tags">
+    <span class="footer-tag">#StopNow</span>
+    <span class="footer-tag">#JusticeNow</span>
+    <span class="footer-tag">#StopNowHT</span>
+    <span class="footer-tag">#JusticeNowHT</span>
+  </div>
+</footer>
+
+</body>
+</html>
